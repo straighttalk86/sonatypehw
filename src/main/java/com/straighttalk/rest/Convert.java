@@ -1,6 +1,6 @@
 package com.straighttalk.rest;
 
-import com.ibm.icu.text.RuleBasedNumberFormat;
+import com.straighttalk.converters.NumbersToWords;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,17 +24,15 @@ public class Convert {
      * numbersToWords end point - takes a number to convert param and the language to convert
      * it to.
      * @param numToConv An int to convert to words
-     * @param languageToConv The language to convert the int into
      * @return JSON containing the int converted to words
      */
     @GET
     @Path("/numbersToWords")
     @Produces(MediaType.APPLICATION_JSON)
-    public String numbersToWords(@QueryParam("numToConv") int numToConv, @QueryParam("languageToConv") String languageToConv) {
-        Locale l = new Locale(languageToConv);
-        RuleBasedNumberFormat rbnf = new RuleBasedNumberFormat(l, RuleBasedNumberFormat.SPELLOUT);
+    public String numbersToWords(@QueryParam("numToConv") int numToConv) {
+        NumbersToWords n = new NumbersToWords();
         JSONObject j = new JSONObject();
-        j.put("conversion", rbnf.format(numToConv));
+        j.put("conversion", n.convert(numToConv));
         return j.toString();
     }
 

@@ -24,12 +24,11 @@ public class ConvertServletTest extends JerseyTest {
     public void testNumbersToWords(){
         String output = target("/convert/numbersToWords")
                 .queryParam("numToConv", "12")
-                .queryParam("languageToConv", "en_us")
                 .request()
                 .get(String.class);
         JSONObject j = new JSONObject(output);
 
-        assertEquals("Should return twelve", "twelve", j.getString("conversion"));
+        assertEquals("Should return Twelve", "Twelve", j.getString("conversion"));
     }
 
     @Test

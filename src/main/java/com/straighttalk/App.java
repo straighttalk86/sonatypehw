@@ -17,7 +17,7 @@ public class App {
     /**
      * Starts the jetty server and registers REST API classes with the jersey servlet.
      * @param args A string array containing the command line arguments.
-     * @exception Any exception
+     * @exception Exception
      * @return No return value.
      */
     public static void main(String[] args) throws Exception {

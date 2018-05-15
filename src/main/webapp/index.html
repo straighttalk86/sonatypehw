@@ -6,12 +6,10 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript">
-        //convert - function that grabs the number and language chosen in the interface
-        // and calls the REST API to convert the number to words in the chosen language.
+        //convert - function that grabs the number chosen in the interface
+        // and calls the REST API to convert the number to English.
         // It will update the interface with the resulting conversion
         function convert(){
             $.ajax({
@@ -31,29 +29,11 @@
             });
         }
 
-        //getList - hits the REST API localeList endpoint and fills the autocomplete list
-        function getList(){
-            $.ajax({
-                url: "/sonatypehw/convert/localeList",
-                type: 'GET',
-                dataType: "json",
-                success: function(data) {
-                    $("#languageToConv").autocomplete({
-                      source: data
-                    });
-                },
-                error: function(jqxhr, status, errorMsg) {
-                    alert('Failed! ' + errorMsg);
-                }
-            });
-        }
-
         //checkForm - checks to make sure all the fields are filled in the form
         // Once all the fields are filled in the button to Convert will be enabled
         // otherwise it is disabled
         function checkForm(){
-            console.log("CHECKING FORM", $("#numToConv").val(), $("#languageToConv").val() );
-            if($("#numToConv").val() == "" || $("#languageToConv").val() == "")
+            if($("#numToConv").val() == "")
                 $("#btnConvert").attr("disabled", "disabled");
             else
                 $("#btnConvert").removeAttr("disabled");
@@ -65,9 +45,8 @@
     </script>
 </head>
 <body>
-<h2>Enter a number and the language type you want it converted to</h2>
+<h2>Enter a number you want converted to English words</h2>
 <label>Number to convert: <input id="numToConv" type="number" onkeyup="checkForm();"/></label>
-<label>Language to convert to: <input id="languageToConv" type="text" value="en_us" onkeyup="checkForm();"></label>
 <button id="btnConvert" class="btn btn-outline-primary" type="button" onclick="convert();">Convert</button>
 <hr/>
 <div>Conversion Result:</div>
